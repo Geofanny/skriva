@@ -14,11 +14,17 @@ return new class extends Migration
         Schema::create('pengajuan_judul', function (Blueprint $table) {
             $table->string('kd_ajuan', 10)->primary();
             $table->string('npm', 16);
-            $table->foreign('npm')->references('npm')->on('mahasiswa');
+            $table->foreign('npm')->references('npm')->on('mahasiswa')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('nip_dospem_1', 16);
-            $table->foreign('nip_dospem_1')->references('nip')->on('dosen');
+            $table->foreign('nip_dospem_1')->references('nip')->on('dosen')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('nip_dospem_2', 16);
-            $table->foreign('nip_dospem_2')->references('nip')->on('dosen');
+            $table->foreign('nip_dospem_2')->references('nip')->on('dosen')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->date('tgl_pengajuan');
         });
     }

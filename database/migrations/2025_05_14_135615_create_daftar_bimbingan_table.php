@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('daftar_bimbingan', function (Blueprint $table) {
             $table->string('kd_bimbingan', 12)->primary();
             $table->string('nip', 18);
-            $table->foreign('nip')->references('nip')->on('dosen');
+            $table->foreign('nip')->references('nip')->on('dosen')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->string('slug',20)->unique();
             $table->char('pembimbing',1);
             $table->date('tgl_pembuatan');

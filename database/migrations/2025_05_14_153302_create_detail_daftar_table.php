@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('detail_daftar', function (Blueprint $table) {
             $table->string('kd_bimbingan', 9);
             $table->foreign('kd_bimbingan')->references('kd_bimbingan')->on('daftar_bimbingan')
-                  ->onDelete('cascade');
-            $table->string('npm', 13);
-            $table->foreign('npm')->references('npm')->on('mahasiswa');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->string('npm', 16);
+            $table->foreign('npm')->references('npm')->on('mahasiswa')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

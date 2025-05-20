@@ -28,33 +28,38 @@
                 <label class="block text-sm font-medium text-white mb-1">Program Studi</label>
                 <select name="prodi" id="prodi" required
                     class="w-full bg-gray-800 text-white border border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-                    <option value="" disabled>Pilih Program Studi</option>
+                    <option value="" disabled {{ old('prodi', $dosen->prodi) == '' ? 'selected' : '' }}>Pilih Program Studi</option>
+            
                     <optgroup label="FIPPS">
-                        <option value="bimbingan dan konseling" {{ old('prodi', $dosen->prodi) == 'bimbingan dan konseling' ? 'selected' : '' }}>Bimbingan dan Konseling</option>
-                        <option value="pendidikan ekonomi" {{ old('prodi', $dosen->prodi) == 'pendidikan ekonomi' ? 'selected' : '' }}>Pendidikan Ekonomi</option>
-                        <option value="pendidikan sejarah" {{ old('prodi', $dosen->prodi) == 'pendidikan sejarah' ? 'selected' : '' }}>Pendidikan Sejarah</option>
-                        <option value="bisnis digital" {{ old('prodi', $dosen->prodi) == 'bisnis digital' ? 'selected' : '' }}>Bisnis Digital</option>
-                        <option value="manajemen ritel" {{ old('prodi', $dosen->prodi) == 'manajemen ritel' ? 'selected' : '' }}>Manajemen Ritel</option>
+                        <option value="Bimbingan dan Konseling" {{ old('prodi', $dosen->prodi) == 'Bimbingan dan Konseling' ? 'selected' : '' }}>Bimbingan dan Konseling</option>
+                        <option value="Pendidikan Ekonomi" {{ old('prodi', $dosen->prodi) == 'Pendidikan Ekonomi' ? 'selected' : '' }}>Pendidikan Ekonomi</option>
+                        <option value="Pendidikan Sejarah" {{ old('prodi', $dosen->prodi) == 'Pendidikan Sejarah' ? 'selected' : '' }}>Pendidikan Sejarah</option>
+                        <option value="Bisnis Digital" {{ old('prodi', $dosen->prodi) == 'Bisnis Digital' ? 'selected' : '' }}>Bisnis Digital</option>
+                        <option value="Manajemen Ritel" {{ old('prodi', $dosen->prodi) == 'Manajemen Ritel' ? 'selected' : '' }}>Manajemen Ritel</option>
                     </optgroup>
+            
                     <optgroup label="FMIPA">
-                        <option value="pendidikan matematika" {{ old('prodi', $dosen->prodi) == 'pendidikan matematika' ? 'selected' : '' }}>Pendidikan Matematika</option>
-                        <option value="pendidikan biologi" {{ old('prodi', $dosen->prodi) == 'pendidikan biologi' ? 'selected' : '' }}>Pendidikan Biologi</option>
-                        <option value="pendidikan fisika" {{ old('prodi', $dosen->prodi) == 'pendidikan fisika' ? 'selected' : '' }}>Pendidikan Fisika</option>
-                        <option value="sains data" {{ old('prodi', $dosen->prodi) == 'sains data' ? 'selected' : '' }}>Sains Data</option>
+                        <option value="Pendidikan Matematika" {{ old('prodi', $dosen->prodi) == 'Pendidikan Matematika' ? 'selected' : '' }}>Pendidikan Matematika</option>
+                        <option value="Pendidikan Biologi" {{ old('prodi', $dosen->prodi) == 'Pendidikan Biologi' ? 'selected' : '' }}>Pendidikan Biologi</option>
+                        <option value="Pendidikan Fisika" {{ old('prodi', $dosen->prodi) == 'Pendidikan Fisika' ? 'selected' : '' }}>Pendidikan Fisika</option>
+                        <option value="Sains Data" {{ old('prodi', $dosen->prodi) == 'Sains Data' ? 'selected' : '' }}>Sains Data</option>
                     </optgroup>
+            
                     <optgroup label="FTIK">
-                        <option value="arsitektur" {{ old('prodi', $dosen->prodi) == 'arsitektur' ? 'selected' : '' }}>Arsitektur</option>
-                        <option value="teknik industri" {{ old('prodi', $dosen->prodi) == 'teknik industri' ? 'selected' : '' }}>Teknik Industri</option>
-                        <option value="teknik informatika" {{ old('prodi', $dosen->prodi) == 'teknik informatika' ? 'selected' : '' }}>Teknik Informatika</option>
-                        <option value="sistem informasi" {{ old('prodi', $dosen->prodi) == 'sistem informasi' ? 'selected' : '' }}>Sistem Informasi</option>
+                        <option value="Arsitektur" {{ old('prodi', $dosen->prodi) == 'Arsitektur' ? 'selected' : '' }}>Arsitektur</option>
+                        <option value="Teknik Industri" {{ old('prodi', $dosen->prodi) == 'Teknik Industri' ? 'selected' : '' }}>Teknik Industri</option>
+                        <option value="Teknik Informatika" {{ old('prodi', $dosen->prodi) == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika</option>
+                        <option value="Sistem Informasi" {{ old('prodi', $dosen->prodi) == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
                     </optgroup>
+            
                     <optgroup label="FBS">
-                        <option value="pendidikan bahasa dan sastra indonesia" {{ old('prodi', $dosen->prodi) == 'pendidikan bahasa dan sastra indonesia' ? 'selected' : '' }}>Pendidikan Bahasa dan Sastra Indonesia</option>
-                        <option value="pendidikan bahasa inggris" {{ old('prodi', $dosen->prodi) == 'pendidikan bahasa inggris' ? 'selected' : '' }}>Pendidikan Bahasa Inggris</option>
-                        <option value="desain komunikasi visual" {{ old('prodi', $dosen->prodi) == 'desain komunikasi visual' ? 'selected' : '' }}>Desain Komunikasi Visual</option>
+                        <option value="Pendidikan Bahasa dan Sastra Indonesia" {{ old('prodi', $dosen->prodi) == 'Pendidikan Bahasa dan Sastra Indonesia' ? 'selected' : '' }}>Pendidikan Bahasa dan Sastra Indonesia</option>
+                        <option value="Pendidikan Bahasa Inggris" {{ old('prodi', $dosen->prodi) == 'Pendidikan Bahasa Inggris' ? 'selected' : '' }}>Pendidikan Bahasa Inggris</option>
+                        <option value="Desain Komunikasi Visual" {{ old('prodi', $dosen->prodi) == 'Desain Komunikasi Visual' ? 'selected' : '' }}>Desain Komunikasi Visual</option>
                     </optgroup>
                 </select>
             </div>
+            
 
             <div>
                 <label class="block text-sm font-medium text-white mb-1">No HP</label>

@@ -1,4 +1,14 @@
 <script>
+  window.addEventListener('load', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.classList.add('opacity-0');
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';
+    }, 700); // match dengan transition duration
+  });
+</script>
+
+<script>
   function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const toggleIcon = document.getElementById('toggle-icon');
