@@ -67,7 +67,7 @@ class DosenController extends Controller
             'no_hp' => $request['no_hp'],
         ]);
     
-        return redirect('/dosen')->with('success', 'Data dosen berhasil disimpan.');
+        return redirect('/dosen')->with('success', 'Dosen baru berhasil ditambahkan.');
     }
 
     /**

@@ -1,7 +1,7 @@
 <aside id="sidebar" class="w-64 bg-sidebar text-sm p-4 flex flex-col transition-all duration-300 text-white" x-data="{ openMenu: '' }">
   <!-- Logo -->
   <div class="flex items-center space-x-2 pb-4 mb-6 border-b border-gray-600">
-    <img src="{{ asset('asset/faviconn.png') }}" class="h-8" alt="Logo">
+    <img src="{{ asset('asset/logo2.png') }}" class="h-auto w-12" alt="Logo">
     <a href="/mahasiswa"><span class="text-2xl font-bold">Skriva</span></a>
   </div>
 

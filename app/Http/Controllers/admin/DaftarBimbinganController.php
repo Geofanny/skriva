@@ -71,58 +71,58 @@ class DaftarBimbinganController extends Controller
      * Store a newly created resource in storage.
      */
 
-public function store(Request $request)
-{
-    // Ambil data mahasiswa berdasarkan NPM
-    $dosen = DB::table('dosen')->where('nip', $request->nip)->first();
+    public function store(Request $request)
+    {
+        // Ambil data mahasiswa berdasarkan NPM
+        $dosen = DB::table('dosen')->where('nip', $request->nip)->first();
 
-    if (!$dosen) {
-        return back()->with('error', 'Mahasiswa tidak ditemukan');
-    }
+        if (!$dosen) {
+            return back()->with('error', 'Mahasiswa tidak ditemukan');
+        }
 
-    // Ambil nama prodi dari dosen
-    $prodi = strtolower(trim($dosen->prodi));
+        // Ambil nama prodi dari dosen
+        $prodi = strtolower(trim($dosen->prodi));
 
-    // Generate kode prodi dinamis
-    if ($prodi === 'arsitektur') {
-        $kodeProdi = strtoupper(substr($prodi, 0, 3)); // ARS
-    } else {
-        $parts = explode(' ', $prodi);
-        $kodeProdi = '';
-        foreach ($parts as $part) {
-            if (!empty($part)) {
-                $kodeProdi .= strtoupper(substr($part, 0, 1));
+        // Generate kode prodi dinamis
+        if ($prodi === 'arsitektur') {
+            $kodeProdi = strtoupper(substr($prodi, 0, 3)); // ARS
+        } else {
+            $parts = explode(' ', $prodi);
+            $kodeProdi = '';
+            foreach ($parts as $part) {
+                if (!empty($part)) {
+                    $kodeProdi .= strtoupper(substr($part, 0, 1));
+                }
             }
         }
+
+        // Cek kode terakhir dari tabel pembimbing
+        $last = DB::table('daftar_bimbingan')
+            ->where('kd_bimbingan', 'like', 'BIM' . $kodeProdi . '%')
+            ->orderByDesc('kd_bimbingan')
+            ->first();
+
+        $lastNumber = 0;
+        if ($last) {
+            $lastNumber = (int) substr($last->kd_bimbingan, -4);
+        }
+
+        $nextNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
+        $kd_bimbingan = 'BIM' . $kodeProdi . $nextNumber;
+        $slug = 'S' . $kodeProdi . $nextNumber;
+        $tgl_pembuatan = Carbon::today()->format('Y-m-d');
+
+        // Simpan ke DB
+        DB::table('daftar_bimbingan')->insert([
+            'kd_bimbingan' => $kd_bimbingan,
+            'nip' => $request->nip,
+            'slug' => $slug,
+            'pembimbing' => $request->pembimbing,
+            'tgl_pembuatan' => $tgl_pembuatan,
+        ]);
+
+        return redirect()->route('pembimbing.index')->with('success', 'Pembimbing baru berhasil ditambahkan');
     }
-
-    // Cek kode terakhir dari tabel pembimbing
-    $last = DB::table('daftar_bimbingan')
-        ->where('kd_bimbingan', 'like', 'BIM' . $kodeProdi . '%')
-        ->orderByDesc('kd_bimbingan')
-        ->first();
-
-    $lastNumber = 0;
-    if ($last) {
-        $lastNumber = (int) substr($last->kd_bimbingan, -4);
-    }
-
-    $nextNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
-    $kd_bimbingan = 'BIM' . $kodeProdi . $nextNumber;
-    $slug = 'S' . $kodeProdi . $nextNumber;
-    $tgl_pembuatan = Carbon::today()->format('Y-m-d');
-
-    // Simpan ke DB
-    DB::table('daftar_bimbingan')->insert([
-        'kd_bimbingan' => $kd_bimbingan,
-        'nip' => $request->nip,
-        'slug' => $slug,
-        'pembimbing' => $request->pembimbing,
-        'tgl_pembuatan' => $tgl_pembuatan,
-    ]);
-
-    return redirect()->route('pembimbing.index')->with('success', 'Data pembimbing berhasil ditambahkan');
-}
 
 
     /**
@@ -174,15 +174,16 @@ public function store(Request $request)
             abort(404, 'Data pembimbing tidak ditemukan.');
         }
 
-        // Ambil NPM mahasiswa yang sudah dibimbing oleh kode bimbingan ini
         // $mahasiswaSudahDiambil = DB::table('detail_daftar')
-        //     ->where('kd_bimbingan', $pembimbing->kode)
-        //     ->where('daftar_bimbingan.pembimbing', $pembimbing->kategori)
-        //     ->pluck('npm');
+        // ->join('daftar_bimbingan', 'detail_daftar.kd_bimbingan', '=', 'daftar_bimbingan.kd_bimbingan')
+        // ->where('daftar_bimbingan.pembimbing', $pembimbing->kategori) // misalnya '1' atau '2'
+        // ->pluck('detail_daftar.npm');
 
         $mahasiswaSudahDiambil = DB::table('detail_daftar')
         ->join('daftar_bimbingan', 'detail_daftar.kd_bimbingan', '=', 'daftar_bimbingan.kd_bimbingan')
-        ->where('daftar_bimbingan.pembimbing', $pembimbing->kategori) // misalnya '1' atau '2'
+        ->join('dosen', 'daftar_bimbingan.nip', '=', 'dosen.nip')
+        ->where('daftar_bimbingan.pembimbing', $pembimbing->kategori)
+        ->whereRaw('LOWER(dosen.prodi) = ?', [strtolower($pembimbing->prodi)])
         ->pluck('detail_daftar.npm');
 
 
@@ -209,32 +210,32 @@ public function store(Request $request)
 
 
 
-public function daftarBimbingan(Request $request, $kode)
-{
-    $request->validate([
-        'mahasiswa' => 'required|array|min:1|max:6',
-        'mahasiswa.*' => 'exists:mahasiswa,npm',
-    ]);
+    public function daftarBimbingan(Request $request, $kode)
+    {
+        $request->validate([
+            'mahasiswa' => 'required|array|min:1|max:6',
+            'mahasiswa.*' => 'exists:mahasiswa,npm',
+        ]);
 
-    $mahasiswaList = $request->mahasiswa;
+        $mahasiswaList = $request->mahasiswa;
 
-    foreach ($mahasiswaList as $npm) {
-        $exists = DB::table('detail_daftar')
-            ->where('kd_bimbingan', $kode)
-            ->where('npm', $npm)
-            ->exists();
-    
-        if (!$exists) {
-            DB::table('detail_daftar')->insert([
-                'kd_bimbingan' => $kode,
-                'npm' => $npm,
-            ]);
+        foreach ($mahasiswaList as $npm) {
+            $exists = DB::table('detail_daftar')
+                ->where('kd_bimbingan', $kode)
+                ->where('npm', $npm)
+                ->exists();
+        
+            if (!$exists) {
+                DB::table('detail_daftar')->insert([
+                    'kd_bimbingan' => $kode,
+                    'npm' => $npm,
+                ]);
+            }
         }
-    }
-    
+        
 
-    return redirect('/pembimbing')->with('success', 'Mahasiswa berhasil ditambahkan ke daftar bimbingan.');
-}
+        return redirect('/pembimbing')->with('success', 'Mahasiswa berhasil ditambahkan ke daftar bimbingan.');
+    }
 
     public function editDaftar($slug)
     {

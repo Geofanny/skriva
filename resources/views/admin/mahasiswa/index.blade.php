@@ -48,11 +48,11 @@
                         </td>
                         <td class="px-6 py-4 space-x-3">
                             <a href="{{ route('mahasiswa.edit', $mahasiswa->token) }}" class="text-blue-700 group-hover:text-blue-200 font-semibold">Edit</a>
-                            <form action="{{ route('mahasiswa.destroy', $mahasiswa->npm) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');" class="inline">
+                            <form id="form-hapus-{{ $mahasiswa->npm }}" action="{{ route('mahasiswa.destroy', $mahasiswa->npm) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-700 group-hover:text-red-300 font-semibold">Hapus</button>
-                            </form>
+                                <button type="button" onclick="confirmHapus('{{ $mahasiswa->npm }}')" class="text-red-700 group-hover:text-red-300 font-semibold">Hapus</button>
+                            </form> 
                         </td>
                     </tr>
                 @endforeach
@@ -132,6 +132,37 @@
                 });
             });
         </script>
+
+    <script>
+        function confirmHapus(npm) {
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data mahasiswa akan dihapus secara permanen.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#e3342f',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Ya, hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('form-hapus-' + npm).submit();
+                }
+            });
+        }
+    </script>
+
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '{{ session('success') }}',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3085d6'
+        });
+    </script>
+    @endif
         
     @endpush
 </x-dashboard.dashboard>

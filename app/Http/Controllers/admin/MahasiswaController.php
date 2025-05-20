@@ -46,7 +46,7 @@ class MahasiswaController extends Controller
             'no_hp' => $request['no_hp'],
         ]);
     
-        return redirect('/mahasiswa')->with('success', 'Data dosen berhasil disimpan.');
+        return redirect('/mahasiswa')->with('success', 'Mahasiswa baru berhasil ditambahkan.');
     }
 
     public function edit($token)
@@ -71,13 +71,13 @@ class MahasiswaController extends Controller
     
         DB::table('mahasiswa')->where('token', $token)->update($data);
     
-        return redirect()->route('mahasiswa.index')->with('success', 'Data dosen berhasil diperbarui.');
+        return redirect()->route('mahasiswa.index')->with('success', 'Data mahasiswa berhasil diperbarui.');
     }
 
     public function destroy($npm)
     {
         DB::table('mahasiswa')->where('npm', $npm)->delete();
     
-        return redirect()->route('mahasiswa.index')->with('success', 'Data dosen berhasil dihapus.');
+        return redirect()->route('mahasiswa.index')->with('success', 'Data mahasiswa berhasil dihapus.');
     }
 }

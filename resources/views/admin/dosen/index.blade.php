@@ -48,11 +48,11 @@
                         </td>                        
                         <td class="px-6 py-4 space-x-3">
                             <a href="{{ route('dosen.edit', $dosen->token) }}" class="text-blue-700 group-hover:text-blue-200 font-semibold">Edit</a>
-                            <form action="{{ route('dosen.destroy', $dosen->nip) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');" class="inline">
+                            <form id="form-hapus-{{ $dosen->nip }}" action="{{ route('dosen.destroy', $dosen->nip) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-700 group-hover:text-red-300 font-semibold">Hapus</button>
-                            </form>
+                                <button type="button" onclick="confirmHapus('{{ $dosen->nip }}')" class="text-red-700 group-hover:text-red-300 font-semibold">Hapus</button>
+                            </form>                            
                         </td>
                     </tr>
                 @endforeach
@@ -133,5 +133,36 @@
             });
         </script>
         
+        <script>
+            function confirmHapus(nip) {
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: "Data dosen akan dihapus secara permanen.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e3342f',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Ya, hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('form-hapus-' + nip).submit();
+                    }
+                });
+            }
+        </script>
+
+        @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#3085d6'
+            });
+        </script>
+        @endif
+
     @endpush
 </x-dashboard.dashboard>

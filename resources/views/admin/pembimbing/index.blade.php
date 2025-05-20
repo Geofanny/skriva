@@ -180,7 +180,20 @@
                     }
                 });
             });
-        </script>        
+        </script> 
+        
+        @if(session('success'))
+         <script>
+             Swal.fire({
+                 icon: 'success',
+                 title: 'Berhasil',
+                 text: '{{ session('success') }}',
+                 confirmButtonText: 'OK',
+                 confirmButtonColor: '#3085d6'
+             });
+         </script>
+         @endif
+                
         <script>feather.replace()</script>
     @endpush
 </x-dashboard.dashboard>
