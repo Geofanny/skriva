@@ -1,5 +1,5 @@
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<link rel="shortcut icon" href="{{ asset('asset/faviconn.png') }}" type="image/png">
+<link rel="shortcut icon" href="{{ asset('asset/logo2.png') }}" type="image/png">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="//unpkg.com/alpinejs" defer></script>
 <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>

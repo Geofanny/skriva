@@ -14,22 +14,22 @@ class DosenFactory extends Factory
 
         // Daftar Prodi dan Gelar yang relevan
         $prodiGelar = [
-            'Bimbingan dan Konseling' => ['M.Pd.', 'Dr.'],
-            'Pendidikan Ekonomi' => ['M.Pd.', 'Dr.'],
-            'Pendidikan Sejarah' => ['M.Pd.', 'Dr.'],
-            'Bisnis Digital' => ['M.M.', 'M.Kom.', 'Ph.D.'],
-            'Manajemen Ritel' => ['M.M.', 'Dr.'],
-            'Pendidikan Matematika' => ['M.Pd.', 'Dr.'],
-            'Pendidikan Biologi' => ['M.Pd.', 'Dr.'],
-            'Pendidikan Fisika' => ['M.Pd.', 'Dr.'],
-            'Sains Data' => ['M.Si.', 'Ph.D.'],
-            'Arsitektur' => ['M.T.', 'Dr.'],
-            'Teknik Industri' => ['M.T.', 'Ph.D.'],
-            'Teknik Informatika' => ['M.Kom.', 'Ph.D.'],
-            'Sistem Informasi' => ['M.Kom.', 'Ph.D.'],
-            'Pendidikan Bahasa dan Sastra Indonesia' => ['M.Pd.', 'Dr.'],
-            'Pendidikan Bahasa Inggris' => ['M.Pd.', 'Dr.'],
-            'Desain Komunikasi Visual' => ['M.Sn.', 'Dr.'],
+            'bimbingan dan konseling' => ['M.Pd.', 'Dr.'],
+            'pendidikan ekonomi' => ['M.Pd.', 'Dr.'],
+            'pendidikan sejarah' => ['M.Pd.', 'Dr.'],
+            'bisnis digital' => ['M.M.', 'M.Kom.', 'Ph.D.'],
+            'manajemen ritel' => ['M.M.', 'Dr.'],
+            'pendidikan matematika' => ['M.Pd.', 'Dr.'],
+            'pendidikan biologi' => ['M.Pd.', 'Dr.'],
+            'pendidikan fisika' => ['M.Pd.', 'Dr.'],
+            'sains data' => ['M.Si.', 'Ph.D.'],
+            'arsitektur' => ['M.T.', 'Dr.'],
+            'teknik industri' => ['M.T.', 'Ph.D.'],
+            'teknik informatika' => ['M.Kom.', 'Ph.D.'],
+            'sistem informasi' => ['M.Kom.', 'Ph.D.'],
+            'pendidikan bahasa dan sastra indonesia' => ['M.Pd.', 'Dr.'],
+            'pendidikan bahasa inggris' => ['M.Pd.', 'Dr.'],
+            'desain komunikasi visual' => ['M.Sn.', 'Dr.'],
         ];
 
         // Pilih prodi secara acak

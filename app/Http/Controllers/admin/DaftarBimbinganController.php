@@ -152,9 +152,11 @@ class DaftarBimbinganController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($kd_bimbingan)
     {
-        //
+        DB::table('daftar_bimbingan')->where('kd_bimbingan', $kd_bimbingan)->delete();
+    
+        return redirect()->route('pembimbing.index')->with('success', 'Data pembimbing berhasil dihapus.');
     }
 
     public function mahasiswa($slug)

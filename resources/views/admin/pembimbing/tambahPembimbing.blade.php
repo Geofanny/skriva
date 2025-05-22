@@ -1,4 +1,4 @@
-<x-dashboard.dashboard>
+<x-dashboard.dashboard title="Daftar Pembimbing">
     <form class="rounded-2xl shadow-inner" method="POST" action="{{ route('pembimbing.store') }}">
         @csrf
         <h2 class="text-lg font-semibold text-white mb-6">🧾 Form Input Pembimbing</h2>

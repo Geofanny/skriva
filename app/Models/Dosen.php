@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\DaftarBimbingan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,5 +16,11 @@ class Dosen extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = ['nip', 'nama', 'token', 'prodi','password','no_hp'.'foto'];
+    protected $fillable = ['nip', 'nama', 'token', 'prodi','password','no_hp','foto'];
+
+    public function daftarBimbingan()
+    {
+        return $this->hasMany(DaftarBimbingan::class, 'nip', 'nip');
+    }
+
 }

@@ -27,7 +27,6 @@ class MahasiswaController extends Controller
             'npm' => 'required|unique:mahasiswa',
             'nama' => 'required',
             'prodi' => 'required',
-            'password' => 'required',
             'no_hp' => 'required',
         ],[
             'npm.unique' => 'NPM ini sudah terdaftar. Gunakan NPM lain.',
@@ -41,7 +40,7 @@ class MahasiswaController extends Controller
             'npm' => $request['npm'],
             'nama' => $request['nama'],
             'prodi' => $request['prodi'],
-            'password' => Hash::make($request['password']),
+            'password' => Hash::make($request['npm']),
             'token' => Str::random(16),
             'no_hp' => $request['no_hp'],
         ]);

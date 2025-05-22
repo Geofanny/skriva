@@ -1,11 +1,17 @@
 <script>
-  window.addEventListener('load', () => {
-    const loadingScreen = document.getElementById('loading-screen');
-    loadingScreen.classList.add('opacity-0');
-    setTimeout(() => {
-      loadingScreen.style.display = 'none';
-    }, 700); // match dengan transition duration
-  });
+ window.addEventListener('load', () => {
+  const loadingScreen = document.getElementById('loading-screen');
+  const body = document.getElementById('body');
+
+  // sembunyikan loading screen
+  loadingScreen.style.opacity = 0;
+  setTimeout(() => {
+    loadingScreen.style.display = 'none';
+    // aktifkan scroll kembali
+    body.classList.remove('overflow-hidden');
+  }, 700);
+});
+
 </script>
 
 <script>

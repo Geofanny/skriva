@@ -1,4 +1,4 @@
-<x-dashboard.dashboard>
+<x-dashboard.dashboard title="Penambahan Mahasiswa Bimbingan">
     <form class="rounded-2xl shadow-inner" method="POST" action="/pembimbing/{{ $kode }}/mahasiswa">
         @csrf
         <div class="bg-slate-800 p-5 rounded-xl shadow-md mb-10 border border-slate-700">

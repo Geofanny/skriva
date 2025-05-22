@@ -48,7 +48,6 @@ class DosenController extends Controller
             'nip' => 'required|unique:dosen',
             'nama' => 'required',
             'prodi' => 'required',
-            'password' => 'required',
             'no_hp' => 'required',
         ],[
             'nip.unique' => 'NIP ini sudah terdaftar. Gunakan NIP lain.',
@@ -62,7 +61,7 @@ class DosenController extends Controller
             'nip' => $request['nip'],
             'nama' => $request['nama'],
             'prodi' => $request['prodi'],
-            'password' => Hash::make($request['password']),
+            'password' => Hash::make($request['nip']),
             'token' => Str::random(16),
             'no_hp' => $request['no_hp'],
         ]);

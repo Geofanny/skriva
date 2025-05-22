@@ -1,4 +1,4 @@
-<x-dashboard.dashboard>
+<x-dashboard.dashboard title="Daftar Mahasiswa">
     <form class="rounded-2xl shadow-inner" method="POST" action="{{ route('mahasiswa.store') }}">
         @csrf
         <h2 class="text-lg font-semibold text-white mb-6">🧾 Form Input Mahasiswa</h2>
@@ -60,10 +60,13 @@
                     oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                     class="w-full bg-gray-800 text-white border border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
             </div>    
-            <div>
+            {{-- <div>
                 <label class="block text-sm font-medium text-white mb-1">Password</label>
                 <input type="password" name="password" placeholder="Password" required
                     class="w-full bg-gray-800 text-white border border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+            </div> --}}
+            <div class="md:col-span-2">
+                <p class="text-sm text-red-500 mt-2">*) Password akan dibuat otomatis dari NPM.</p>
             </div>
         </div>
 

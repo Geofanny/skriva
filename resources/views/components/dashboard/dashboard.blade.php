@@ -1,9 +1,10 @@
+@props(['title' => 'Dashboard Admin'])
 <!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ $title ?? 'Default Title' }}</title>
+    <title>{{ $title ?? '' }}</title>
     <x-dashboard.link></x-dashboard.link>
     
     {{ $link ?? '' }}
@@ -17,12 +18,21 @@
       .animate-fade-in {
         animation: fadeIn 1s ease-out forwards;
       }
+
+      @keyframes loading-bar {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+
+      .animate-loading-bar {
+        animation: loading-bar 1.5s linear infinite;
+      }
     </style>
     
   </head>
-  <body class="flex bg-slate-900 text-white">
+  <body class="flex bg-slate-900 text-white overflow-hidden" id="body">
 
-    <div id="loading-screen"  class="fixed inset-0 z-50 bg-slate-900 flex flex-col items-center justify-center text-center transition-opacity duration-700">
+    <div id="loading-screen" class="fixed inset-0 z-50 bg-slate-900 flex flex-col items-center justify-center text-center transition-opacity duration-700">
       <div class="animate-fade-in flex flex-col items-center">
         <img src="{{ asset('asset/logo2.png') }}" alt="Logo"
              class="w-auto h-40 drop-shadow-lg m-0 p-0 leading-none"
@@ -30,12 +40,13 @@
         
         <h1 class="text-5xl font-extrabold text-white tracking-wide m-0 p-0 leading-none">Skriva</h1>
     
-        <!-- Spinner -->
-        <div class="mt-8 w-14 h-14 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+        <!-- Loading bar animasi ringan -->
+        <div class="mt-8 w-48 h-1 bg-gray-700 rounded overflow-hidden">
+          <div class="h-full bg-white animate-loading-bar"></div>
+        </div>
       </div>
     </div>
     
-
 
     <!-- Sidebar -->
     <x-dashboard.sidebar></x-dashboard.sidebar>

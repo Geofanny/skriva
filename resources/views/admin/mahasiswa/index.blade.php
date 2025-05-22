@@ -1,16 +1,43 @@
-<x-dashboard.dashboard>
+<x-dashboard.dashboard title="Daftar Mahasiswa">
     @push('link')
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css">
         <style>
             .dataTables_length select {
-                color: black; 
+                color: black;
                 background-color: white;
             }
-    
+
             .dataTables_length select option {
                 background-color: white;
                 color: black;
+            }
+
+            #mahasiswaTable {
+                background-color: white !important;
+                color: black !important;
+            }
+
+            #mahasiswaTable thead {
+                background-color: #f1f5f9;
+                color: #111827;
+            }
+
+            #mahasiswaTable tbody tr {
+                background-color: white;
+            }
+
+            #mahasiswaTable tbody tr:hover {
+                background-color: #e2e8f0;
+            }
+
+            #mahasiswaTable td,
+            #mahasiswaTable th {
+                color: black !important;
+            }
+
+            .prodi-label {
+                display: inline-block;
             }
         </style>
     @endpush
@@ -23,43 +50,46 @@
     </a>
 
     <div class="bg-slate-800 p-4 rounded-xl overflow-x-auto border border-slate-700">
-        <table id="mahasiswaTable" class="min-w-full divide-y capitalize divide-slate-700 text-sm text-black">
-            <thead class="bg-slate-700 text-gray-100 uppercase text-xs font-semibold">
+        <table id="mahasiswaTable" class="min-w-full divide-y capitalize divide-slate-700 text-sm">
+            <thead class="uppercase text-xs font-semibold">
                 <tr>
                     <th class="px-6 py-3 text-left">No</th>
-                    <th class="px-6 py-3 text-left">NIP</th>
+                    <th class="px-6 py-3 text-left">NPM</th>
                     <th class="px-6 py-3 text-left">Nama</th>
                     <th class="px-6 py-3 text-left">Nomor Telepon</th>
                     <th class="px-6 py-3 text-left">Prodi</th>
                     <th class="px-6 py-3 text-left">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-700">
+            <tbody>
                 @foreach ($mahasiswas as $mahasiswa)
-                    <tr class="hover:bg-slate-700 group transition">
-                        <td class="px-6 py-4 font-medium text-gray-800 group-hover:text-white">{{ $loop->iteration }}</td> 
-                        <td class="px-6 py-4 font-medium text-gray-800 group-hover:text-white">{{ $mahasiswa->npm }}</td>
-                        <td class="px-6 py-4 text-gray-800 group-hover:text-white">{{ $mahasiswa->nama }}</td>
-                        <td class="px-6 py-4 text-gray-800 group-hover:text-white">{{ $mahasiswa->no_hp }}</td>
+                    <tr class="group transition">
+                        <td class="px-6 py-4 font-medium">{{ $loop->iteration }}</td>
+                        <td class="px-6 py-4 font-medium">{{ $mahasiswa->npm }}</td>
+                        <td class="px-6 py-4">{{ $mahasiswa->nama }}</td>
+                        <td class="px-6 py-4">{{ $mahasiswa->no_hp }}</td>
                         <td class="px-6 py-4">
-                            <span class="px-3 py-1 rounded-full text-xs font-semibold prodi-label" data-prodi="{{ $mahasiswa->prodi }}">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold prodi-label"
+                                  data-prodi="{{ $mahasiswa->prodi }}">
                                 {{ $mahasiswa->prodi }}
                             </span>
                         </td>
                         <td class="px-6 py-4 space-x-3">
-                            <a href="{{ route('mahasiswa.edit', $mahasiswa->token) }}" class="text-blue-700 group-hover:text-blue-200 font-semibold">Edit</a>
-                            <form id="form-hapus-{{ $mahasiswa->npm }}" action="{{ route('mahasiswa.destroy', $mahasiswa->npm) }}" method="POST" class="inline">
+                            <a href="{{ route('mahasiswa.edit', $mahasiswa->token) }}"
+                               class="text-blue-700 group-hover:text-blue-400 font-semibold">Edit</a>
+                            <form id="form-hapus-{{ $mahasiswa->npm }}" action="{{ route('mahasiswa.destroy', $mahasiswa->npm) }}"
+                                  method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" onclick="confirmHapus('{{ $mahasiswa->npm }}')" class="text-red-700 group-hover:text-red-300 font-semibold">Hapus</button>
-                            </form> 
+                                <button type="button" onclick="confirmHapus('{{ $mahasiswa->npm }}')"
+                                        class="text-red-700 group-hover:text-red-400 font-semibold">Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    
 
     @push('script')
         <!-- jQuery -->
@@ -74,7 +104,7 @@
                 "#3730A3", "#4C1D95", "#7C3AED", "#0F172A", "#4A044E",
                 "#78350F", "#14532D", "#172554", "#3B0764", "#164E63", "#431407"
             ];
-        
+
             function hashString(str) {
                 let hash = 0;
                 for (let i = 0; i < str.length; i++) {
@@ -82,7 +112,7 @@
                 }
                 return Math.abs(hash);
             }
-        
+
             function getColorByProdi(prodi) {
                 const index = hashString(prodi.toLowerCase()) % bgDarkColors.length;
                 return {
@@ -90,7 +120,7 @@
                     text: "#FFFFFF"
                 };
             }
-        
+
             function applyProdiColors() {
                 $('.prodi-label').each(function () {
                     const prodi = $(this).data('prodi');
@@ -103,7 +133,7 @@
                     }
                 });
             }
-        
+
             $(document).ready(function () {
                 const table = $('#mahasiswaTable').DataTable({
                     responsive: true,
@@ -122,47 +152,44 @@
                         }
                     }
                 });
-        
-                // Apply color saat pertama kali
+
                 applyProdiColors();
-        
-                // Apply color SETIAP DataTables redraw (pagination, search, sort, dll)
+
                 table.on('draw.dt', function () {
                     applyProdiColors();
                 });
             });
         </script>
 
-    <script>
-        function confirmHapus(npm) {
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: "Data mahasiswa akan dihapus secara permanen.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#e3342f',
-                cancelButtonColor: '#6b7280',
-                confirmButtonText: 'Ya, hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('form-hapus-' + npm).submit();
-                }
-            });
-        }
-    </script>
+        <script>
+            function confirmHapus(npm) {
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: "Data mahasiswa akan dihapus secara permanen.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e3342f',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Ya, hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('form-hapus-' + npm).submit();
+                    }
+                });
+            }
+        </script>
 
-    @if(session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: '{{ session('success') }}',
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#3085d6'
-        });
-    </script>
-    @endif
-        
+        @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#3085d6'
+            });
+        </script>
+        @endif
     @endpush
 </x-dashboard.dashboard>

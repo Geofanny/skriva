@@ -1,4 +1,4 @@
-<x-dashboard.dashboard>
+<x-dashboard.dashboard title="Pengajuan Judul Skripsi">
   <form class="rounded-2xl shadow-inner" method="POST" action="/ajukan">
       @csrf
 

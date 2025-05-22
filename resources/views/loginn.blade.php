@@ -20,7 +20,7 @@
 
     <div class="bg-white/10 backdrop-blur-md p-10 rounded-xl shadow-lg w-full max-w-md relative z-10">
       <div class="flex flex-col items-center">
-        <img src="{{ asset('asset/faviconn.png') }}" alt="Logo" class="w-12 mb-4" />
+        <img src="{{ asset('asset/logo2.png') }}" alt="Logo" class="w-12 mb-4" />
         <h1 class="text-white text-2xl font-bold mb-2">Login</h1>
         <p class="text-gray-300 mb-6 text-center">Login Akun Skriva-mu !</p>
         <form class="w-full">

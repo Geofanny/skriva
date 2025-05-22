@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_daftar', function (Blueprint $table) {
-            $table->string('kd_bimbingan', 9);
+            $table->string('kd_bimbingan', 12);
             $table->foreign('kd_bimbingan')->references('kd_bimbingan')->on('daftar_bimbingan')
             ->onDelete('cascade')
             ->onUpdate('cascade');
