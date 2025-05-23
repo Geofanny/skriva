@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\AuthSeeder;
 use Database\Seeders\DosenSeeder;
 use Database\Seeders\MahasiswaSeeder;
 use Database\Seeders\DaftarBimbinganSeeder;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
             MahasiswaSeeder::class,
             DaftarBimbinganSeeder::class,
             DetailDaftarSeeder::class,
+            AuthSeeder::class,
         ]);
     }
 }

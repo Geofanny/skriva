@@ -7,11 +7,33 @@
         <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 48 48"><path stroke-linecap="r" stroke-linejoin="round" stroke-width="2" d="m32.8,29.3c-8.9-.8-16.2-7.8-17.5-16.6-.3-1.8-.3-3.7,0-5.4.2-1.4-1.4-2.3-2.5-1.6C6.3,9.7,2.1,16.9,2.5,25c.5,10.7,9,19.5,19.7,20.4,10.6.9,19.8-6,22.5-15.6.4-1.4-1-2.6-2.3-2-2.9,1.3-6.1,1.8-9.6,1.5Z" /></svg>
         <img src="https://randomuser.me/api/portraits/men/75.jpg" class="h-8 w-8 rounded-full border-2 border-white cursor-pointer" alt="User" onclick="toggleDropdown()" />
         <div id="dropdown" class="absolute right-0 top-10 bg-slate-800 rounded shadow-md p-4 w-48 hidden">
-          <p class="font-semibold">Fazri Azis S</p>
-          <p class="text-sm text-gray-400 mb-2">NPM: 202333500653</p>
+          
+          @php
+              $user = null;
+              $nipOrNpm = null;
+
+              if (Auth::guard('dosen')->check()) {
+                  $user = Auth::guard('dosen')->user();
+                  $nipOrNpm = 'NIP: ' . $user->nip;
+              } elseif (Auth::guard('mahasiswa')->check()) {
+                  $user = Auth::guard('mahasiswa')->user();
+                  $nipOrNpm = 'NPM: ' . $user->npm;
+              } elseif (Auth::guard('admin')->check()) {
+                  $user = Auth::guard('admin')->user();
+                  $username = $user->username;
+              }
+          @endphp
+
+          @if($user)
+              <p class="font-semibold">{{ $user->nama ?? $username }}</p>
+              <p class="text-sm text-gray-400 mb-2">{{ $nipOrNpm }}</p>
+          @endif
+
           <hr class="border-slate-700 my-2">
           <button class="block w-full text-left text-sm py-1 hover:text-highlight">Pengaturan Akun</button>
-          <button class="block w-full text-left text-sm py-1 hover:text-highlight">Logout</button>
+          <button class="block w-full text-left text-sm py-1 hover:text-highlight" onclick="confirmLogout()">
+             Logout
+          </button>
         </div>
       </div>
     </div>

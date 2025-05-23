@@ -50,11 +50,13 @@ class DosenFactory extends Factory
             $namaLengkap = $namaDepan . ' ' . $namaBelakang . ', ' . $gelar;
         }
 
+        $nip = $faker->unique()->numerify('################');
+
         return [
-            'nip' => $faker->unique()->numerify('################'),
+            'nip' => $nip,
             'nama' => $namaLengkap,
             'prodi' => $prodi,
-            'password' => bcrypt('password123'),
+            'password' => bcrypt($nip),
             'token' => Str::random(16),
             'foto' => null,
             'no_hp' => $faker->numerify('08##########'),

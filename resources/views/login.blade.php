@@ -20,12 +20,13 @@
 
     <div class="bg-white/10 backdrop-blur-md p-10 rounded-xl shadow-lg w-full max-w-md relative z-10">
       <div class="flex flex-col items-center">
-        <img src="{{ asset('asset/logo2.png') }}" alt="Logo" class="w-12 mb-4" />
-        <h1 class="text-white text-2xl font-bold mb-2">Login</h1>
-        <p class="text-gray-300 mb-6 text-center">Login Akun Skriva-mu !</p>
-        <form class="w-full">
-          <input type="text" placeholder="Username" class="w-full p-3 mb-4 rounded bg-white text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500" />
-          <input type="password" placeholder="Password" class="w-full p-3 mb-4 rounded bg-white text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500" />
+        <img src="{{ asset('asset/logo2.png') }}" alt="Logo" class="w-28" />
+        <h1 class="text-white text-2xl font-bold">Skriva</h1>
+        <p class="text-gray-300 mb-6 text-center text-sm italic">BIMBINGAN MUDAH, SKRIPSI LANCAR</p>
+        <form class="w-full" method="POST" action="/login">
+          @csrf
+          <input type="text" name="username" placeholder="Username" class="w-full p-3 mb-4 rounded bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500" />
+          <input type="password" name="password" placeholder="Password" class="w-full p-3 mb-4 rounded bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500" />
           <div class="flex items-center justify-between mb-4">
             <label class="flex items-center text-white">
               <input type="checkbox" class="mr-2" /> Remember me

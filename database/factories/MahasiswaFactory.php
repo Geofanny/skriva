@@ -46,7 +46,7 @@ class MahasiswaFactory extends Factory
                 'pendidikan bahasa inggris',
                 'desain komunikasi visual'
             ]),
-            'password' => bcrypt('password123'),
+            'password' => bcrypt($npm),
             'token' => Str::random(16),
             'foto' => null,
             'no_hp' => $faker->numerify('08##########'),

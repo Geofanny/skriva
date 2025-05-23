@@ -4,9 +4,10 @@ namespace App\Models;
 
 use App\Models\DetailDaftar;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Mahasiswa extends Model
+class Mahasiswa extends Authenticatable
 {
     use HasFactory;
     public $timestamps = false;

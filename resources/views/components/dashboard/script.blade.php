@@ -15,6 +15,31 @@
 </script>
 
 <script>
+  function confirmLogout() {
+    Swal.fire({
+      title: 'Yakin ingin logout?',
+      text: "Sesi Anda akan diakhiri.",
+      imageUrl: '{{ asset("asset/logout.png") }}',
+      imageWidth: 90,
+      imageHeight: 90,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, logout',
+      cancelButtonText: 'Batal',
+      customClass: {
+        image: 'mx-auto'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/logout";
+      }
+    });
+  }
+</script>
+
+
+<script>
   function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const toggleIcon = document.getElementById('toggle-icon');

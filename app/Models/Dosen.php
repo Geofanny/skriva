@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Models\DaftarBimbingan;
 use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Dosen extends Model
+class Dosen extends Authenticatable
 {
     use HasFactory;
     public $timestamps = false;

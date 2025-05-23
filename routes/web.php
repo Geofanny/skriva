@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\DosenController;
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\admin\MahasiswaController;
 use App\Http\Controllers\mahasiswa\PengajuanController;
 use App\Http\Controllers\admin\DaftarBimbinganController;
@@ -10,9 +11,9 @@ Route::get('/', function () {
     return redirect('/dosen');
 });
 
-Route::get('/login', function () {
-    return view('loginn');
-});
+// Route::get('/login', function () {
+//     return view('loginn');
+// });
 
 Route::get('/regis', function () {
     return view('regis');
@@ -61,6 +62,11 @@ route::get('/daftarMahasiswa', function () {
 // route::get('/admin', function () {
 //     return view('admin.admin');
 // });
+
+Route::get('/login', [AuthenticationController::class,'showLogin']);
+Route::get('/dashboard/login', [AuthenticationController::class,'showLoginAdmin']);
+Route::post('/login', [AuthenticationController::class,'login']);
+Route::get('/logout', [AuthenticationController::class,'logout']);
 
 Route::resource('/dosen', DosenController::class);
 Route::resource('/mahasiswa', MahasiswaController::class);
