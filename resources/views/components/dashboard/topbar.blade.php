@@ -20,14 +20,13 @@
                   $nipOrNpm = 'NPM: ' . $user->npm;
               } elseif (Auth::guard('admin')->check()) {
                   $user = Auth::guard('admin')->user();
-                  $username = $user->username;
               }
           @endphp
 
           @if($user)
-              <p class="font-semibold">{{ $user->nama ?? $username }}</p>
+              <p class="font-semibold capitalize">{{ $user->nama }}</p>
               <p class="text-sm text-gray-400 mb-2">{{ $nipOrNpm }}</p>
-          @endif
+          @endif            
 
           <hr class="border-slate-700 my-2">
           <button class="block w-full text-left text-sm py-1 hover:text-highlight">Pengaturan Akun</button>

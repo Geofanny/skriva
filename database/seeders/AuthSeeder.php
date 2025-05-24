@@ -18,7 +18,7 @@ class AuthSeeder extends Seeder
     {
         // Admin dummy
         Admin::create([
-            'username' => 'admin',
+            'nama' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123'),
             'no_hp' => '081234567890',

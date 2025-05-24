@@ -19,17 +19,18 @@ class AuthenticationController extends Controller
     {
         $credentials = $request->only('username', 'password');
 
-        // Coba login sebagai dosen
+        // login sebagai dosen
         if (Auth::guard('dosen')->attempt(['nip' => $credentials['username'], 'password' => $credentials['password']])) {
-            return redirect()->intended('/dosen');
+            return redirect()->intended('/profil');
+            // return view('dosen.editProfil');
         }
 
-        // Coba login sebagai mahasiswa
+        // login sebagai mahasiswa
         if (Auth::guard('mahasiswa')->attempt(['npm' => $credentials['username'], 'password' => $credentials['password']])) {
-            return redirect()->intended('/mahasiswa');
+            return redirect()->intended('/pengajuanJudul');
         }
 
-        // Coba login sebagai admin
+        // login sebagai admin
         if (Auth::guard('admin')->attempt(['email' => $credentials['username'], 'password' => $credentials['password']])) {
             return redirect()->intended('/pembimbing');
         }
@@ -41,6 +42,13 @@ class AuthenticationController extends Controller
 
     public function logout(Request $request)
     {
+        $redirectRoute = '/login';
+
+        if (Auth::guard('admin')->check()) {
+            $redirectRoute = '/dashboard/login';
+        }
+
+        // Logout semua guard
         Auth::guard('admin')->logout();
         Auth::guard('dosen')->logout();
         Auth::guard('mahasiswa')->logout();
@@ -48,6 +56,7 @@ class AuthenticationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect($redirectRoute);
     }
+
 }

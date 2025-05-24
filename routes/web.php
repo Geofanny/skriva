@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\DosenController;
+use App\Http\Controllers\dosen\ProfilController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\admin\MahasiswaController;
 use App\Http\Controllers\mahasiswa\PengajuanController;
@@ -84,6 +85,8 @@ Route::resource('/pembimbing', DaftarBimbinganController::class);
 Route::get('/pengajuanJudul', [PengajuanController::class,'pengajuanJudul']);
 Route::post('/ajukan', [PengajuanController::class,'ajukan']);
 
+Route::get('/profil', [ProfilController::class,'showProfil']);
+Route::post('/editProfil', [ProfilController::class,'updateProfilDosen']);
 
 route::get('/admin-dosen', function () {
     return view('admin.dosen');

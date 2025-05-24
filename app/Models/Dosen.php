@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Models\DaftarBimbingan;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\RiwayatPendidikan;
 // use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Dosen extends Authenticatable
 {
@@ -23,6 +24,11 @@ class Dosen extends Authenticatable
     public function daftarBimbingan()
     {
         return $this->hasMany(DaftarBimbingan::class, 'nip', 'nip');
+    }
+
+    public function riwayatPendidikan()
+    {
+        return $this->hasMany(RiwayatPendidikan::class, 'nip', 'nip');
     }
 
 }
