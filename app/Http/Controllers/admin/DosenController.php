@@ -83,7 +83,15 @@ class DosenController extends Controller
     public function edit($token)
     {
         $dosen = DB::table('dosen')->where('token', $token)->first();
-        return view('admin.dosen.editDosen', compact('dosen'));
+       
+        // Cek apakah dosen jika memiliki mahasiswa bimbingan
+        $dosenPembimbing = DB::table('daftar_bimbingan')
+        ->join('detail_daftar', 'daftar_bimbingan.kd_bimbingan', '=', 'detail_daftar.kd_bimbingan')
+        ->where('daftar_bimbingan.nip', $dosen->nip)
+        ->exists(); // akan bernilai true jika ada mahasiswa
+
+        // dd($dosenPembimbing);
+        return view('admin.dosen.editDosen', compact('dosen','dosenPembimbing'));
     }
 
     /**

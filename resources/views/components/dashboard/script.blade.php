@@ -32,11 +32,37 @@
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "/logout";
+        // Loading dulu
+        Swal.fire({
+          title: 'Sedang logout...',
+          text: 'Mohon tunggu sebentar',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
+        // Setelah 1.5 detik, ganti ke sukses
+        setTimeout(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil logout',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false
+          }).then(() => {
+            // Setelah sukses selesai, redirect logout
+            window.location.href = "/logout";
+          });
+        }, 1500);
       }
     });
   }
 </script>
+
+
 
 
 <script>

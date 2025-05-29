@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\DosenController;
-use App\Http\Controllers\dosen\ProfilController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\admin\MahasiswaController;
+use App\Http\Controllers\mahasiswa\ProfilController AS ProfilMahasiswaController;
 use App\Http\Controllers\mahasiswa\PengajuanController;
 use App\Http\Controllers\admin\DaftarBimbinganController;
+use App\Http\Controllers\dosen\ProfilController AS ProfilDosenController;
 
 Route::get('/', function () {
-    return redirect('/dosen');
+    return redirect('/login');
 });
 
 // Route::get('/login', function () {
@@ -64,29 +65,60 @@ route::get('/daftarMahasiswa', function () {
 //     return view('admin.admin');
 // });
 
+// Login Mahasiswa & Dosen
 Route::get('/login', [AuthenticationController::class,'showLogin']);
-Route::get('/dashboard/login', [AuthenticationController::class,'showLoginAdmin']);
 Route::post('/login', [AuthenticationController::class,'login']);
+
+// Login Admin
+Route::get('/dashboard/login', [AuthenticationController::class,'showLoginAdmin']);
+
+// Logout
 Route::get('/logout', [AuthenticationController::class,'logout']);
 
-Route::resource('/dosen', DosenController::class);
-Route::resource('/mahasiswa', MahasiswaController::class);
-Route::get('/pembimbing/{slug}/mahasiswa', [DaftarBimbinganController::class,'mahasiswa']);
+// Role Dosen
+Route::middleware('auth.role:dosen')->group(function () {
+
+    // Profil
+    Route::get('/profilDosen', [ProfilDosenController::class,'showProfil']);
+    Route::post('/editProfilDosen', [ProfilDosenController::class,'updateProfilDosen']);
+});
+
+// Role Admin 
+Route::middleware('auth.role:admin')->group(function () {
+
+    // Dosen
+    Route::resource('/dosen', DosenController::class);
+
+    // Mahasiswa
+    Route::resource('/mahasiswa', MahasiswaController::class);
+
+    // Pembimbing
+    Route::get('/pembimbing/{slug}/mahasiswa', [DaftarBimbinganController::class,'mahasiswa']);
+    Route::post('/pembimbing/{kd}/mahasiswa', [DaftarBimbinganController::class,'daftarBimbingan']);
+    Route::post('/pembimbing/{slug}/edit', [DaftarBimbinganController::class,'editDaftar']);
+    Route::resource('/pembimbing', DaftarBimbinganController::class);
+
+});
+
+// Role Mahasiswa
+Route::middleware('auth.role:mahasiswa')->group(function () {
+
+    // Pengajuan Judul Skripsi
+    Route::get('/pengajuanJudul', [PengajuanController::class,'pengajuanJudul']);
+    Route::post('/ajukan', [PengajuanController::class,'ajukan']);
+
+    // Profil
+    Route::get('/profilMahasiswa', [ProfilMahasiswaController::class,'showProfil']);
+    Route::post('/editProfilMahasiswa', [ProfilMahasiswaController::class,'updateProfilMahasiswa']);
+
+});
+
 // Route::get('/pembimbing/{kode}/mahasiswa', [DaftarBimbinganController::class, 'mahasiswaDetail']);
 // Route::get('/pembimbing/{kd_bimbingan}/mahasiswa', [DaftarBimbinganController::class, 'getMahasiswa']);
-
-Route::post('/pembimbing/{kd}/mahasiswa', [DaftarBimbinganController::class,'daftarBimbingan']);
-Route::post('/pembimbing/{slug}/edit', [DaftarBimbinganController::class,'editDaftar']);
-Route::resource('/pembimbing', DaftarBimbinganController::class);
 
 // Route::get('/admin', [DosenController::class,'index']);
 // Route::get('/admin/tambahDosen', [DosenController::class,'tambah']);
 
-Route::get('/pengajuanJudul', [PengajuanController::class,'pengajuanJudul']);
-Route::post('/ajukan', [PengajuanController::class,'ajukan']);
-
-Route::get('/profil', [ProfilController::class,'showProfil']);
-Route::post('/editProfil', [ProfilController::class,'updateProfilDosen']);
 
 route::get('/admin-dosen', function () {
     return view('admin.dosen');

@@ -4,13 +4,17 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
     @endpush
 
+    {{-- Alert Kalau Foto,noHp & riwayatPendidikan NULL --}}
+    @if(empty($dosen->foto) && empty($dosen->no_hp) && !$riwayat)       
+        <div class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded shadow">
+            <p class="font-semibold">Perhatian!</p>
+            <p>Mohon lengkapi semua data identitas dengan benar. <span class="text-red-500">*</span> menandakan field wajib diisi.</p>
+        </div>
+    @endif    
+
     <h2 class="text-xl font-semibold text-white mb-6">Profil Dosen</h2>
 
-    {{-- <p class="mb-6 text-sm text-gray-400">
-        <span class="text-red-500 font-bold">*</span> = Field yang dapat diedit
-    </p> --}}
-
-    <form id="form-biodata" class="space-y-6" action="/editProfil" method="POST" enctype="multipart/form-data">
+    <form id="form-biodata" class="space-y-6" action="/editProfilDosen" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Foto + Nama -->

@@ -25,8 +25,10 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-white mb-1">Program Studi</label>
-                <select name="prodi" id="prodi" required
+                <label class="block text-sm font-medium text-white mb-1">
+                    Program Studi @if($dosenPembimbing)<span class="text-sm text-red-400">(sedang membimbing)</span>@endif
+                </label>
+                <select name="prodi" id="prodi" required {{ $dosenPembimbing ? 'disabled' : '' }}
                     class="w-full bg-gray-800 text-white border border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
                     <option value="" disabled {{ old('prodi', $dosen->prodi) == '' ? 'selected' : '' }}>Pilih Program Studi</option>
             
@@ -72,7 +74,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-white mb-1">Password <span class="text-sm text-gray-400">(isi jika ingin mengganti)</span></label>
+                <label class="block text-sm font-medium text-white mb-1">Password <span class="text-sm text-red-400">(isi jika ingin mengganti)</span></label>
                 <input type="password" name="password" placeholder="Password"
                     class="w-full bg-gray-800 text-white border border-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
             </div>
